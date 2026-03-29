@@ -1,51 +1,167 @@
-The Story: A Market in Transition
-The tech industry is currently navigating a post-pandemic correction, moving away from "growth at all costs" toward a model of "operational efficiency." Our dataset, comprising over 6,000 unique job postings, tells the story of a market that is no longer dominated by Big Tech giants, but rather by specialized recruitment firms and IT consulting agencies that act as the primary gatekeepers for talent.
+Project Report: Multi Stage Job Market Analysis
+An Integrated Study of Skill Demand and Hiring Dynamics
 
-We see a landscape where companies are increasingly risk-averse, favoring candidates who can demonstrate immediate technical proficiency rather than potential, leading to a significant concentration of Mid-to-Senior level roles while entry-level opportunities remain highly competitive and scarce.
+1. Project Overview
+Objective
+This project provides a comprehensive analysis of the modern job market by examining over six thousand LinkedIn job postings. The goal is to move beyond intuition to identify the structural differences between baseline and advanced skills, and how these requirements shift across different levels of seniority.
 
-Technical Workflow and Methodology
-1. Data Foundation (Python EDA)
-The journey began with Python-based Exploratory Data Analysis. Using Pandas and Matplotlib, we identified the raw distribution of skills. This stage was crucial for uncovering "Skill Clusters"—noticing, for example, that Python rarely appears in isolation but is almost always paired with AWS, SQL, or Docker. We moved beyond simple counting to understand the "Analytical Foundation" of the job market.
+Methodology and Tooling
 
-2. Strategic Engineering (SQL)
-To turn raw text into business intelligence, we utilized SQL for feature engineering. We normalized the chaotic "job level" strings into three clean tiers: Junior, Mid, and Senior. This allowed us to calculate the Senior-to-Junior Ratio, a vital economic indicator showing that for every one entry-level role, there are approximately five roles requiring 3+ years of experience. We also developed a Stability Score to track which companies post consistently month-over-month versus those that engage in "burst hiring."
+Python for Exploratory Data Analysis: Used for initial data cleaning, handling missing values, and performing string manipulation to isolate individual skills from unstructured text.
+1.Question:
+At what time periods are companies hiring more junior vs senior roles?
+Answer:
+The chart shows that hiring is heavily skewed toward senior roles compared to mid/junior roles. This indicates that companies are prioritizing experienced professionals, with no strong evidence of junior-heavy hiring periods.
 
-3. Business Enrichment (Excel & Power Query)
-The final layer involved merging job postings with external company metadata. By adding dimensions like Company Size (e.g., "Very Large 100,000+") and Primary Region (e.g., "USA/India"), we were able to see the "Remote Paradox." While the general sentiment suggests a total return to the office, our data shows that specialized firms like Crossover maintain a 100% remote strategy, successfully poaching talent from traditional firms that insist on onsite presence.
+![Hiring Momentum](images/chart1.png)
 
-Strategic Business Insights
-The Rise of the "Aggregator" Model
-A staggering 60% of total job volume is driven by industries labeled as Tech Recruitment and IT Consulting. This indicates a shift where corporations are outsourcing the "risk" of hiring to third-party agencies. For a business, this means the cost of acquisition for talent is rising. For a job seeker, it means that "who you know" in the recruitment world is just as important as "what you know" in the codebase.
+.2. Skill Dominance Curve (Chart 2)
 
-The Remote Strategy Split
-Our analysis categorized companies into "Onsite-Heavy" and "Remote-First."
+Question:
+Do a few skills dominate job postings, or are skills evenly distributed?
+Answer:
+A small number of skills dominate most job postings, while the majority of skills appear rarely. This follows a long-tail distribution, where core skills are in high demand and niche skills are less frequent.
 
-Onsite-Heavy: Dominated by legacy industries like Real Estate (JLL) and Investment Banking (Goldman Sachs). These firms have a remote share of near 0%.
+![Skill Dominance](images/chart2.png)
 
-Remote-First: Driven by agile HR Tech firms. Interestingly, these firms show higher "Hiring Categories" (High/Medium), suggesting that remote flexibility is a primary driver of company growth and hiring volume in the current year.
+3. Remote vs Onsite Trend (Chart 3)
+Question:
+How have remote, hybrid, and onsite job roles changed over time?
+Answer:
+The chart shows that remote roles have increased significantly, while onsite roles are still present but less dominant. Hybrid roles also contribute, indicating a shift toward flexible work models.
 
-The Junior Talent Gap
-The data confirms a "Junior Bottleneck." Junior roles account for the smallest slice of the hiring pie. This creates a long-term business challenge: as senior talent eventually moves into management or retires, the lack of a "talent pipeline" at the junior level will create a massive skills gap in 3 to 5 years.
+![Remote vs Onsite](images/chart3.png)
 
-Critical Challenges and Solutions
-Challenge 1: Data Normalization
-The raw data for "Job Level" was highly fragmented, with variations like "Staff," "Principal," and "Lead."
+ 5. Hiring Concentration (Chart 4)
 
-Solution: We implemented a SQL CASE statement logic to bucket these into a "Senior" category, ensuring that our visualizations reflected actual market seniority rather than just job title semantics.
+Question:
+Is hiring concentrated among a few companies or spread across many?
+Answer:
+Hiring is mostly distributed across many companies, with only a small percentage (about 13%) coming from top companies. This means the job market is broad rather than dominated by a few firms.
 
-Challenge 2: Handling "Ghost Jobs" and Duplicates
-In many job boards, the same role is posted multiple times across different cities to increase visibility.
+![Hiring Concentration](images/chart4.png)
 
-Solution: We used a combination of "Company + Job Title + Job Summary" hashing to identify and filter duplicates, ensuring our "Total Jobs" count reflected unique opportunities rather than just posting volume.
+5. Skill Demand by Job Seniority (Chart 5)
 
-Challenge 3: Interpreting Missing Salary Data
-The majority of postings did not list a clear salary range.
+Question:
+Which skills are most common, and at what job seniority level do they appear?
+Answer:
+Core skills like Python, SQL, AWS, and Machine Learning appear frequently, especially in senior roles. This shows that advanced and specialized skills are more required at higher job levels.
+![Skill Demand](images/chart 5.png)
 
-Solution: Instead of guessing financial data, we pivoted our analysis to "Skill Premium." By identifying which skills appeared most frequently in "High Hiring" companies, we could infer the most valuable tech stacks in the current market (e.g., Cloud Data Stacks like Snowflake, Airflow, and dbt).
+SQL for Feature Engineering: Used to build complex metrics including seniority ratios, company market share, and hiring stability scores through Common Table Expressions and Window Functions.
 
-Final Recommendations for Stakeholders
-For Employers: To compete with high-volume recruitment firms, companies must adopt a clearer "Remote Strategy." Firms that are "Onsite-Heavy" are seeing lower hiring stability and volume compared to their "Remote-First" counterparts.
+. Standardizing Job Seniority (Feature Engineering)This query is the foundation for all level-based analysis. It uses logical mapping to clean inconsistent raw data into three standardized categories: Junior, Mid, and Senior.SQLSELECT
+    CASE
+        WHEN lower("job level") LIKE '%junior%'
+          OR lower("job level") LIKE '%entry%' THEN 'Junior'
+        WHEN lower("job level") LIKE '%senior%'
+          OR lower("job level") LIKE '%lead%'
+          OR lower("job level") LIKE '%staff%' THEN 'Senior'
+        ELSE 'Mid'
+    END AS job_level_clean,
+    COUNT(*) AS jobs
+FROM postings
+GROUP BY job_level_clean
+ORDER BY jobs DESC;
+2. Hiring Stability Score (Advanced Analytics)This query identifies which companies hire consistently versus those with unpredictable spikes. By calculating the Stability Score (Average Jobs divided by Volatility), it highlights reliable employers.SQLWITH monthly_jobs AS (
+    SELECT
+        company,
+        substr(first_seen, 1, 7) AS year_month,
+        COUNT(*) AS jobs
+    FROM postings
+    GROUP BY company, year_month
+),
+stats AS (
+    SELECT
+        company,
+        AVG(jobs) AS avg_jobs,
+        AVG(jobs * jobs) AS avg_jobs_sq
+    FROM monthly_jobs
+    GROUP BY company
+)
+SELECT
+    company,
+    ROUND(avg_jobs, 2) AS avg_monthly_jobs,
+    ROUND(sqrt(avg_jobs_sq - avg_jobs * avg_jobs), 2) AS hiring_volatility,
+    ROUND(avg_jobs / NULLIF(sqrt(avg_jobs_sq - avg_jobs * avg_jobs), 0), 2) AS stability_score
+FROM stats
+ORDER BY stability_score DESC;
+3. Senior-to-Junior Market Ratio (Market Trend Analysis)This query tracks whether the market is shifting toward senior or junior talent over time. It is a vital metric for understanding entry-level accessibility versus senior-level demand.SQLWITH job_levels AS (
+    SELECT
+        substr(first_seen, 1, 7) AS year_month,
+        CASE
+            WHEN lower("job level") LIKE '%junior%' OR lower("job level") LIKE '%entry%' THEN 'Junior'
+            WHEN lower("job level") LIKE '%senior%' OR lower("job level") LIKE '%lead%' OR lower("job level") LIKE '%staff%' THEN 'Senior'
+            ELSE 'Mid'
+        END AS job_level
+    FROM postings
+)
+SELECT
+    year_month,
+    CASE
+        WHEN SUM(CASE WHEN job_level = 'Junior' THEN 1 ELSE 0 END) = 0 THEN 'No Junior Roles'
+        ELSE ROUND(1.0 * SUM(CASE WHEN job_level = 'Senior' THEN 1 ELSE 0 END) / SUM(CASE WHEN job_level = 'Junior' THEN 1 ELSE 0 END), 2)
+    END AS senior_to_junior_ratio
+FROM job_levels
+GROUP BY year_month
+ORDER BY year_month;
+4. Company Market Share Percent (Competitive Intelligence)This query determines which companies dominate the hiring market each month by comparing individual company volume against total market postings.SQLWITH monthly_totals AS (
+    SELECT substr(first_seen, 1, 7) AS year_month, COUNT(*) AS total_jobs
+    FROM postings GROUP BY year_month
+),
+company_monthly AS (
+    SELECT company, substr(first_seen, 1, 7) AS year_month, COUNT(*) AS company_jobs
+    FROM postings GROUP BY company, year_month
+)
+SELECT
+    c.company,
+    c.year_month,
+    ROUND(100.0 * c.company_jobs / t.total_jobs, 2) AS market_share_percent
+FROM company_monthly c
+JOIN monthly_totals t ON c.year_month = t.year_month
+ORDER BY market_share_percent DESC;
+5. Remote Work Adoption by CompanyThis query filters for companies with significant hiring volume (at least 20 postings) to determine which ones are leading the shift toward remote-first strategies.SQLSELECT
+    company,
+    ROUND(100.0 * SUM(CASE WHEN lower(job_type) LIKE '%remote%' THEN 1 ELSE 0 END) / COUNT(*), 2) AS remote_share_percent
+FROM postings
+GROUP BY company
+HAVING COUNT(*) >= 20
+ORDER BY remote_share_percent DESC;
 
-For Job Seekers: Focus on "Interdisciplinary Skills." The data shows that being a "Data Engineer" is no longer enough; you must be a "Cloud Data Engineer" with experience in Agile practices (Jira/Confluence) and Stakeholder Management.
 
-For Market Analysts: Watch the "Recruitment Agency" sector. Their hiring patterns are a leading indicator of broader economic health. When agencies stop posting, a general market slowdown usually follows within 60 days.
+
+Excel for Business Intelligence: Used to create final enriched datasets and pivot-based dashboards to visualize industry-specific trends and remote work strategies.
+![Chart 6](images/chart6.png)
+
+2. Business Storytelling: The Skill First Economy
+The Narrative: Navigating Market Maturity
+The analysis reveals that the modern job market is defined more by a skill fingerprint than by traditional job titles. By examining the data, we can categorize the landscape into two distinct tiers:
+
+Tier One: The Utility Layer
+Common technical competencies such as SQL and Python act as the foundational entry requirement. These appear with high frequency across every level of seniority, from Junior to Staff positions. In the current economy, these are no longer differentiators but are the minimum baseline for consideration.
+
+Tier Two: The Strategic Layer
+As roles move toward Senior and Lead levels, the demand shifts toward niche infrastructure and orchestration tools such as Snowflake, Airflow, and Cloud Architecture. These skills carry a higher strategic value and are the primary filters used by organizations to identify top-tier talent.
+
+Hiring Stability and Industry Trends
+The data identifies a clear divide in work culture based on industry rather than role. The Remote Hiring and HR Tech sectors maintain a nearly one hundred percent remote strategy. In contrast, sectors like Real Estate and Property Services remain heavily onsite-focused. Furthermore, by calculating a Stability Score, the analysis distinguishes between high-volume recruiters who hire in bursts and consulting firms that maintain steady, long-term growth.
+
+3. Technical Challenges and Solutions
+Challenge: Processing Unstructured Skill Lists
+The raw data stored multiple skills as a single text string within a single column. This made it impossible to perform statistical counts on individual skills.
+
+Solution: I used Python to perform a data explosion, transforming the dataset so that each skill for a single job posting occupied its own row. This allowed for granular frequency analysis across the entire dataset.
+
+Challenge: Standardizing Inconsistent Seniority Levels
+Job levels were provided in various formats such as Entry, Mid-Senior, and Staff, which prevented an accurate comparison of market tiers.
+
+Solution: I implemented a standardization logic using SQL Case Statements. By mapping various keywords to three primary buckets—Junior, Mid, and Senior—I was able to calculate the Senior to Junior Ratio, a key metric for understanding market seniority concentration.
+
+Challenge: Measuring Market Influence
+Simply counting jobs does not show which companies lead the market during specific timeframes.
+
+Solution: I utilized SQL Common Table Expressions to calculate monthly market totals and then joined that data against individual company volume. This enabled the calculation of Market Share Percentage, providing a clear view of which firms dominate the hiring landscape month-over-month.
+
+4. Final Conclusion
+This analysis ensures that all subsequent project phases are grounded in data-driven evidence. By distinguishing between high-frequency utility skills and high-value strategic skills, the project provides a clear roadmap for organizations to benchmark their roles and for candidates to prioritize their professional development.
