@@ -1,11 +1,11 @@
-Project Report: Multi Stage Job Market Analysis
+## Project Report: Multi Stage Job Market Analysis
 An Integrated Study of Skill Demand and Hiring Dynamics
 
-1. Project Overview
+## 1. Project Overview
 Objective
 This project provides a comprehensive analysis of the modern job market by examining over six thousand LinkedIn job postings. The goal is to move beyond intuition to identify the structural differences between baseline and advanced skills, and how these requirements shift across different levels of seniority.
 
-Methodology and Tooling
+## Methodology and Tooling
 
 Python for Exploratory Data Analysis: Used for initial data cleaning, handling missing values, and performing string manipulation to isolate individual skills from unstructured text.
 1.Question:
@@ -49,9 +49,9 @@ Answer:
 Core skills like Python, SQL, AWS, and Machine Learning appear frequently, especially in senior roles. This shows that advanced and specialized skills are more required at higher job levels.
 ![Skill Demand](images/chart 5.png)
 
-SQL for Feature Engineering: Used to build complex metrics including seniority ratios, company market share, and hiring stability scores through Common Table Expressions and Window Functions.
+## SQL for Feature Engineering: Used to build complex metrics including seniority ratios, company market share, and hiring stability scores through Common Table Expressions and Window Functions.
 
-. Standardizing Job Seniority (Feature Engineering)This query is the foundation for all level-based analysis. It uses logical mapping to clean inconsistent raw data into three standardized categories: Junior, Mid, and Senior.SQLSELECT
+## Standardizing Job Seniority (Feature Engineering)This query is the foundation for all level-based analysis. It uses logical mapping to clean inconsistent raw data into three standardized categories: Junior, Mid, and Senior.SQLSELECT
     CASE
         WHEN lower("job level") LIKE '%junior%'
           OR lower("job level") LIKE '%entry%' THEN 'Junior'
@@ -64,7 +64,7 @@ SQL for Feature Engineering: Used to build complex metrics including seniority r
 FROM postings
 GROUP BY job_level_clean
 ORDER BY jobs DESC;
-2. Hiring Stability Score (Advanced Analytics)This query identifies which companies hire consistently versus those with unpredictable spikes. By calculating the Stability Score (Average Jobs divided by Volatility), it highlights reliable employers.SQLWITH monthly_jobs AS (
+## Hiring Stability Score (Advanced Analytics)This query identifies which companies hire consistently versus those with unpredictable spikes. By calculating the Stability Score (Average Jobs divided by Volatility), it highlights reliable employers.SQLWITH monthly_jobs AS (
     SELECT
         company,
         substr(first_seen, 1, 7) AS year_month,
@@ -87,7 +87,7 @@ SELECT
     ROUND(avg_jobs / NULLIF(sqrt(avg_jobs_sq - avg_jobs * avg_jobs), 0), 2) AS stability_score
 FROM stats
 ORDER BY stability_score DESC;
-3. Senior-to-Junior Market Ratio (Market Trend Analysis)This query tracks whether the market is shifting toward senior or junior talent over time. It is a vital metric for understanding entry-level accessibility versus senior-level demand.SQLWITH job_levels AS (
+ ## Senior-to-Junior Market Ratio (Market Trend Analysis)This query tracks whether the market is shifting toward senior or junior talent over time. It is a vital metric for understanding entry-level accessibility versus senior-level demand.SQLWITH job_levels AS (
     SELECT
         substr(first_seen, 1, 7) AS year_month,
         CASE
@@ -106,7 +106,7 @@ SELECT
 FROM job_levels
 GROUP BY year_month
 ORDER BY year_month;
-4. Company Market Share Percent (Competitive Intelligence)This query determines which companies dominate the hiring market each month by comparing individual company volume against total market postings.SQLWITH monthly_totals AS (
+##  Company Market Share Percent (Competitive Intelligence)This query determines which companies dominate the hiring market each month by comparing individual company volume against total market postings.SQLWITH monthly_totals AS (
     SELECT substr(first_seen, 1, 7) AS year_month, COUNT(*) AS total_jobs
     FROM postings GROUP BY year_month
 ),
@@ -121,7 +121,7 @@ SELECT
 FROM company_monthly c
 JOIN monthly_totals t ON c.year_month = t.year_month
 ORDER BY market_share_percent DESC;
-5. Remote Work Adoption by CompanyThis query filters for companies with significant hiring volume (at least 20 postings) to determine which ones are leading the shift toward remote-first strategies.SQLSELECT
+## Remote Work Adoption by CompanyThis query filters for companies with significant hiring volume (at least 20 postings) to determine which ones are leading the shift toward remote-first strategies.SQLSELECT
     company,
     ROUND(100.0 * SUM(CASE WHEN lower(job_type) LIKE '%remote%' THEN 1 ELSE 0 END) / COUNT(*), 2) AS remote_share_percent
 FROM postings
@@ -131,10 +131,10 @@ ORDER BY remote_share_percent DESC;
 
 
 
-Excel for Business Intelligence: Used to create final enriched datasets and pivot-based dashboards to visualize industry-specific trends and remote work strategies.
+## Excel for Business Intelligence: Used to create final enriched datasets and pivot-based dashboards to visualize industry-specific trends and remote work strategies.
 ![Chart 6](images/chart6.png)
 
-2. Business Storytelling: The Skill First Economy
+## 2. Business Storytelling: The Skill First Economy
 The Narrative: Navigating Market Maturity
 The analysis reveals that the modern job market is defined more by a skill fingerprint than by traditional job titles. By examining the data, we can categorize the landscape into two distinct tiers:
 
@@ -144,10 +144,10 @@ Common technical competencies such as SQL and Python act as the foundational ent
 Tier Two: The Strategic Layer
 As roles move toward Senior and Lead levels, the demand shifts toward niche infrastructure and orchestration tools such as Snowflake, Airflow, and Cloud Architecture. These skills carry a higher strategic value and are the primary filters used by organizations to identify top-tier talent.
 
-Hiring Stability and Industry Trends
+## Hiring Stability and Industry Trends
 The data identifies a clear divide in work culture based on industry rather than role. The Remote Hiring and HR Tech sectors maintain a nearly one hundred percent remote strategy. In contrast, sectors like Real Estate and Property Services remain heavily onsite-focused. Furthermore, by calculating a Stability Score, the analysis distinguishes between high-volume recruiters who hire in bursts and consulting firms that maintain steady, long-term growth.
 
-3. Technical Challenges and Solutions
+## 3. Technical Challenges and Solutions
 Challenge: Processing Unstructured Skill Lists
 The raw data stored multiple skills as a single text string within a single column. This made it impossible to perform statistical counts on individual skills.
 
@@ -163,5 +163,5 @@ Simply counting jobs does not show which companies lead the market during specif
 
 Solution: I utilized SQL Common Table Expressions to calculate monthly market totals and then joined that data against individual company volume. This enabled the calculation of Market Share Percentage, providing a clear view of which firms dominate the hiring landscape month-over-month.
 
-4. Final Conclusion
+## Final Conclusion
 This analysis ensures that all subsequent project phases are grounded in data-driven evidence. By distinguishing between high-frequency utility skills and high-value strategic skills, the project provides a clear roadmap for organizations to benchmark their roles and for candidates to prioritize their professional development.
