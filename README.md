@@ -2,49 +2,39 @@
 An Integrated Study of Skill Demand and Hiring Dynamics
 
 ## 1. Project Overview
-Objective
+
 This project provides a comprehensive analysis of the modern job market by examining over six thousand LinkedIn job postings. The goal is to move beyond intuition to identify the structural differences between baseline and advanced skills, and how these requirements shift across different levels of seniority.
 
 ## Methodology and Tooling
 
 Python for Exploratory Data Analysis: Used for initial data cleaning, handling missing values, and performing string manipulation to isolate individual skills from unstructured text.
-1.Question:
-At what time periods are companies hiring more junior vs senior roles?
+## 1.Question:At what time periods are companies hiring more junior vs senior roles?
 Answer:
 The chart shows that hiring is heavily skewed toward senior roles compared to mid/junior roles. This indicates that companies are prioritizing experienced professionals, with no strong evidence of junior-heavy hiring periods.
 
 ![Hiring Momentum](images/chart1.png)
 
-.2. Skill Dominance Curve (Chart 2)
 
-Question:
-Do a few skills dominate job postings, or are skills evenly distributed?
+## Question:Do a few skills dominate job postings, or are skills evenly distributed?
 Answer:
 A small number of skills dominate most job postings, while the majority of skills appear rarely. This follows a long-tail distribution, where core skills are in high demand and niche skills are less frequent.
 
 ![Skill Dominance](images/chart2.png)
 
-3. Remote vs Onsite Trend (Chart 3)
-Question:
-How have remote, hybrid, and onsite job roles changed over time?
+## Question:How have remote, hybrid, and onsite job roles changed over time?
 Answer:
 The chart shows that remote roles have increased significantly, while onsite roles are still present but less dominant. Hybrid roles also contribute, indicating a shift toward flexible work models.
 
 ![Remote vs Onsite](images/chart3.png)
 
- 5. Hiring Concentration (Chart 4)
-
-Question:
-Is hiring concentrated among a few companies or spread across many?
+ 
+## Is hiring concentrated among a few companies or spread across many?
 Answer:
 Hiring is mostly distributed across many companies, with only a small percentage (about 13%) coming from top companies. This means the job market is broad rather than dominated by a few firms.
 
 ![Hiring Concentration](images/chart4.png)
 
-5. Skill Demand by Job Seniority (Chart 5)
-
-Question:
-Which skills are most common, and at what job seniority level do they appear?
+## Which skills are most common, and at what job seniority level do they appear?
 Answer:
 Core skills like Python, SQL, AWS, and Machine Learning appear frequently, especially in senior roles. This shows that advanced and specialized skills are more required at higher job levels.
 ![Skill Demand](images/chart 5.png)
