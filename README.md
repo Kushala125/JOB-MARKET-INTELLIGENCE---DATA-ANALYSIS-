@@ -41,7 +41,7 @@ Core skills like Python, SQL, AWS, and Machine Learning appear frequently, espec
 
 ## SQL for Feature Engineering: Used to build complex metrics including seniority ratios, company market share, and hiring stability scores through Common Table Expressions and Window Functions.
 
-## Standardizing Job Seniority (Feature Engineering)This query is the foundation for all level-based analysis. It uses logical mapping to clean inconsistent raw data into three standardized categories: Junior, Mid, and Senior.SQLSELECT
+## Standardizing Job Seniority (Feature Engineering): This query is the foundation for all level-based analysis. It uses logical mapping to clean inconsistent raw data into three standardized categories: Junior, Mid, and Senior.SQLSELECT
     CASE
         WHEN lower("job level") LIKE '%junior%'
           OR lower("job level") LIKE '%entry%' THEN 'Junior'
@@ -54,7 +54,7 @@ Core skills like Python, SQL, AWS, and Machine Learning appear frequently, espec
 FROM postings
 GROUP BY job_level_clean
 ORDER BY jobs DESC;
-## Hiring Stability Score (Advanced Analytics)This query identifies which companies hire consistently versus those with unpredictable spikes. By calculating the Stability Score (Average Jobs divided by Volatility), it highlights reliable employers.SQLWITH monthly_jobs AS (
+## Hiring Stability Score (Advanced Analytics): This query identifies which companies hire consistently versus those with unpredictable spikes. By calculating the Stability Score (Average Jobs divided by Volatility), it highlights reliable employers.SQLWITH monthly_jobs AS (
     SELECT
         company,
         substr(first_seen, 1, 7) AS year_month,
@@ -77,7 +77,7 @@ SELECT
     ROUND(avg_jobs / NULLIF(sqrt(avg_jobs_sq - avg_jobs * avg_jobs), 0), 2) AS stability_score
 FROM stats
 ORDER BY stability_score DESC;
- ## Senior-to-Junior Market Ratio (Market Trend Analysis)This query tracks whether the market is shifting toward senior or junior talent over time. It is a vital metric for understanding entry-level accessibility versus senior-level demand.SQLWITH job_levels AS (
+ ## Senior-to-Junior Market Ratio (Market Trend Analysis): This query tracks whether the market is shifting toward senior or junior talent over time. It is a vital metric for understanding entry-level accessibility versus senior-level demand.SQLWITH job_levels AS (
     SELECT
         substr(first_seen, 1, 7) AS year_month,
         CASE
@@ -96,7 +96,7 @@ SELECT
 FROM job_levels
 GROUP BY year_month
 ORDER BY year_month;
-##  Company Market Share Percent (Competitive Intelligence)This query determines which companies dominate the hiring market each month by comparing individual company volume against total market postings.SQLWITH monthly_totals AS (
+##  Company Market Share Percent (Competitive Intelligence): This query determines which companies dominate the hiring market each month by comparing individual company volume against total market postings.SQLWITH monthly_totals AS (
     SELECT substr(first_seen, 1, 7) AS year_month, COUNT(*) AS total_jobs
     FROM postings GROUP BY year_month
 ),
@@ -111,7 +111,8 @@ SELECT
 FROM company_monthly c
 JOIN monthly_totals t ON c.year_month = t.year_month
 ORDER BY market_share_percent DESC;
-## Remote Work Adoption by CompanyThis query filters for companies with significant hiring volume (at least 20 postings) to determine which ones are leading the shift toward remote-first strategies.SQLSELECT
+## Remote Work Adoption by Company: This query filters for companies with significant hiring volume (at least 20 postings) to determine which ones are leading the shift toward remote-first strategies.
+SELECT
     company,
     ROUND(100.0 * SUM(CASE WHEN lower(job_type) LIKE '%remote%' THEN 1 ELSE 0 END) / COUNT(*), 2) AS remote_share_percent
 FROM postings
