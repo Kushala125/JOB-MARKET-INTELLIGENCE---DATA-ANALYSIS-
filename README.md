@@ -125,6 +125,50 @@ ORDER BY remote_share_percent DESC;
 ## Excel for Business Intelligence: Used to create final enriched datasets and pivot-based dashboards to visualize industry-specific trends and remote work strategies.
 ![Chart 6](images/chart6.png)
 
+
+The dataset consists of a total of 867 job postings, indicating a strong and active hiring market. This volume of data provides a reliable foundation for analyzing trends, company behavior, and workforce demand.
+
+The presence of a substantial number of job listings suggests that the dataset captures meaningful patterns in hiring activity, making it suitable for drawing insights about the overall job market.
+
+The analysis of hiring trends over time shows that job postings fluctuate across different periods rather than following a consistent upward or downward trajectory.
+
+There are noticeable spikes in certain months, which indicate periodic increases in hiring activity. These fluctuations suggest that hiring is influenced by business cycles, project demands, or seasonal recruitment patterns. Overall, the hiring trend can be described as moderately volatile rather than stable.
+
+When examining work mode distribution, it is evident that the majority of job postings fall under onsite or hybrid roles, while remote positions make up a smaller but still significant portion. 
+
+This indicates that organizations continue to prioritize structured work environments, although remote work has become an established component of modern hiring practices. The data reflects a balanced but cautious adoption of flexible work models.
+
+The distribution of job levels reveals that mid-level roles dominate the market, followed by senior-level positions, while junior roles account for only a small fraction of total postings.
+This suggests that companies are primarily seeking candidates with prior experience who can contribute immediately, rather than investing heavily in entry-level hiring.
+
+As a result, the job market appears to be highly competitive for junior candidates, with greater opportunities available for those with intermediate to advanced experience.
+
+An analysis of company-level hiring shows that a small number of companies contribute a disproportionately large share of job postings. This indicates a high level of concentration in the job market, where a few key players dominate hiring activity.
+
+At the same time, there is a long tail of companies with relatively low hiring volumes, highlighting an uneven distribution of opportunities across employers.
+
+Industry analysis further reinforces this pattern, with technology-related sectors, particularly tech recruitment and IT services, leading the hiring landscape.
+
+These industries account for the largest share of job postings, demonstrating that demand is heavily driven by digital transformation and technological advancement.
+
+Other industries contribute to the market but at significantly lower levels, resulting in a fragmented distribution of hiring activity.
+
+The hiring patterns across companies reveal varying levels of stability and volatility. Some organizations maintain consistent hiring levels over time, indicating structured workforce planning and steady growth.
+
+In contrast, others exhibit irregular hiring patterns with sudden increases and decreases, suggesting project-based recruitment or changing business needs. This highlights the coexistence of both stable and dynamic hiring strategies within the market.
+
+Additionally, the concept of hiring momentum shows that certain companies are increasing their hiring activity in recent periods, while others are experiencing stagnation or decline.
+
+Companies with high hiring momentum can be interpreted as growing or expanding, whereas those with lower momentum may be stabilizing or reducing their recruitment efforts. This provides valuable insight into the evolving dynamics of different organizations within the job market.
+
+Remote hiring patterns also vary significantly between companies, indicating that work flexibility is largely dependent on individual organizational strategies rather than being uniformly adopted across the industry. Some companies embrace remote work extensively, while others continue to rely predominantly on onsite or hybrid models.
+
+Overall, the dashboard reveals that the job market is active but unevenly distributed, with hiring concentrated among a few dominant companies and industries. 
+
+The demand for talent is strongly skewed toward mid-level and senior professionals, reflecting an experience-driven market. While remote work is growing, it remains secondary to hybrid and onsite models. The presence of both stable and volatile hiring patterns further emphasizes the complexity of the market.
+
+In conclusion, the analysis highlights a job market characterized by steady demand, competitive dynamics, and a strong emphasis on experience and technology-driven roles. These insights provide a comprehensive understanding of hiring behavior and can support decision-making for job seekers, analysts, and organizations alike.
+
 ## 2. Business Storytelling: The Skill First Economy
 The Narrative: Navigating Market Maturity
 The analysis reveals that the modern job market is defined more by a skill fingerprint than by traditional job titles. By examining the data, we can categorize the landscape into two distinct tiers:
