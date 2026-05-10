@@ -578,6 +578,8 @@ plt.title('Hiring Momentum by Job Level Over Time')
 
 **What it shows:** A color grid where rows are job levels and columns are time periods. Darker color = more jobs posted. The heatmap lets you instantly see which level dominated hiring and whether activity was rising or falling — something a table of numbers would not show clearly.
 
+![Hiring Momentum Heatmap](https://raw.githubusercontent.com/Kushala125/JOB-MARKET-INTELLIGENCE---DATA-ANALYSIS-/main/images/chart1.png)
+
 ---
 
 ### Chart 2 — Skill Dominance Curve (Long Tail)
@@ -593,6 +595,8 @@ plt.xlabel('Skill Rank')
 
 **What it shows:** The classic long-tail distribution of skill demand. SQL and Python tower above everything else on the left. The curve then drops steeply and flattens into a long tail of thousands of niche skills that each appear in only a handful of postings. This shape is extremely informative — it proves the market concentrates heavily on a small set of core skills.
 
+![Skill Dominance Curve](https://raw.githubusercontent.com/Kushala125/JOB-MARKET-INTELLIGENCE---DATA-ANALYSIS-/main/images/chart2.png)
+
 ---
 
 ### Chart 3 — Remote vs Hybrid vs Onsite Trend
@@ -605,6 +609,8 @@ pivot_mode.plot(kind='area', stacked=True, figsize=(10,4),
 ```
 
 **What it shows:** A stacked area chart where each work mode occupies its own colored band. The relative size of each band shows the proportion of that mode in the overall market. This chart cuts through remote-work hype by showing actual numbers — not claims.
+
+![Remote vs Hybrid vs Onsite](https://raw.githubusercontent.com/Kushala125/JOB-MARKET-INTELLIGENCE---DATA-ANALYSIS-/main/images/chart3.png)
 
 ---
 
@@ -621,6 +627,8 @@ plt.title('Hiring Concentration')
 
 **What it shows:** The proportion of all job postings controlled by just the top 10 companies versus every other company combined. A highly skewed pie means the market is dominated by a few players — which shapes every other strategic decision a job seeker or recruiter makes.
 
+![Hiring Concentration](https://raw.githubusercontent.com/Kushala125/JOB-MARKET-INTELLIGENCE---DATA-ANALYSIS-/main/images/chart4.png)
+
 ---
 
 ### Chart 5 — Skill Demand Bubble Chart (by Seniority)
@@ -636,6 +644,16 @@ plt.title('Skill Demand by Job Seniority (Bubble Chart)')
 ```
 
 **What it shows:** Each bubble sits at the intersection of a skill (x-axis) and a seniority level (y-axis). The larger the bubble, the more postings require that skill at that seniority level. This reveals which skills are universal across all levels and which appear almost exclusively in senior roles — directly informing career progression decisions.
+
+![Skill Demand by Seniority](https://raw.githubusercontent.com/Kushala125/JOB-MARKET-INTELLIGENCE---DATA-ANALYSIS-/main/images/chart%205%20.png)
+
+---
+
+### Chart 6 — Business Intelligence Dashboard
+
+**What it shows:** The full Excel dashboard — all key metrics from the analysis consolidated into a single executive-level view with pivot tables, charts, and KPI summaries.
+
+![BI Dashboard](https://raw.githubusercontent.com/Kushala125/JOB-MARKET-INTELLIGENCE---DATA-ANALYSIS-/main/images/chart6.png)
 
 <br/>
 
